@@ -41,7 +41,12 @@ public class PaymentConsumerTests {
                 makeAPaymentSuccessfully.getInputStream(), Charset.forName("UTF-8"))));
 
         // given:
-        Payment payment = new PaymentBuilder().sign();
+        Payment payment = new PaymentBuilder().orderNo("316395233560657005").charset("GBK")
+                .sellerEmail("402673978@qq.com").backUrl("http://www.baidu.com/").defaultBank("ALIPAY")
+                .merchantID("100000000002004").isApp("web").notifyUrl("http://127.0.0.1:8090/return_url.jsp")
+                .title("test").body("testproductDesc").paymentType(1).payMethod("directPay")
+                .service("online_pay").totalFee(0.12).returnUrl("http://127.0.0.1:8090/return_url.jsp")
+                .userIp("116.228.54.118").sign();
 
         // when:
         PaymentResult paymentResult = consumer.pay(payment);
