@@ -1,0 +1,3 @@
+rootProject.name = 'spring-cloud-contract'
+
+include 'http-server', 'http-client'
