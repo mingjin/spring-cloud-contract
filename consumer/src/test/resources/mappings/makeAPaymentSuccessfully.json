@@ -10,7 +10,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"statusCode\":\"OK\",\"body\":\"{\\\"status\\\":\\\"SUCCESS\\\"}\"}",
+    "body" : "{\"body\":\"{\\\"status\\\":\\\"SUCCESS\\\"}\"}",
     "headers" : {
       "Content-Type" : "application/json;charset=UTF-8"
     }
