@@ -74,7 +74,7 @@ public class PaymentConsumerTests {
 
         // then:
         assertThat(paymentResult.getStatusCode()).isEqualTo(HttpStatus.OK);
-        System.out.println(paymentResult.getBody());
+        assertThat(paymentResult.getBody()).isEqualTo("{\"status\":\"SUCCESS\"}");
     }
 
 }
