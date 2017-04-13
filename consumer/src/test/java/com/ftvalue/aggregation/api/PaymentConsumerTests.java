@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StreamUtils;
 
@@ -20,8 +21,8 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes= Application.class, properties="service.port=${wiremock.server.port}")
-@AutoConfigureWireMock(port=0)
+@SpringBootTest(classes= Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureWireMock(port=18170)
 public class PaymentConsumerTests {
 
     @Autowired
@@ -66,13 +67,14 @@ public class PaymentConsumerTests {
                 .merchantID("100000000002004").isApp("web").notifyUrl("http://127.0.0.1:8090/return_url.jsp")
                 .title("test").body("testproductDesc").paymentType(1).payMethod("directPay")
                 .service("online_pay").totalFee(0.12).returnUrl("http://127.0.0.1:8090/return_url.jsp")
-                .userIp("116.228.54.118").sign("c37d0fa95cc38cd2680e5acb1c704751").signType("MD5").build();
+                .userIp("116.228.54.118").sign();
 
         // when:
         PaymentResult paymentResult = consumer.pay(payment);
 
         // then:
-        assertThat(paymentResult.getStatus()).isEqualTo("SUCCESS");
+        assertThat(paymentResult.getStatusCode()).isEqualTo(HttpStatus.OK);
+        System.out.println(paymentResult.getBody());
     }
 
 }

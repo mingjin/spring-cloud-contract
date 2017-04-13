@@ -16,7 +16,8 @@ public class PaymentConsumer {
 
     private final RestTemplate restTemplate;
 
-    private String server = "114.215.242.9";
+    private String server = "localhost";
+
     private int port = 18170;
 
     public PaymentConsumer() {
@@ -25,12 +26,15 @@ public class PaymentConsumer {
 
     public PaymentResult pay(Payment payment) {
         HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.CONTENT_TYPE, "application/json");
 
-        ResponseEntity<PaymentResult> response =
-                restTemplate.exchange("http://" +server+ ":" + port + "/portal", HttpMethod.GET,
+        ResponseEntity<String> response =
+                restTemplate.exchange("http://" + server + ":" + port + "/portal", HttpMethod.GET,
                         new HttpEntity<>(payment, httpHeaders),
-                        PaymentResult.class);
+                        String.class);
 
-        return response.getBody();
+        PaymentResult paymentResult = new PaymentResult(response.getStatusCode(), response.getBody());
+
+        return paymentResult;
     }
 }
