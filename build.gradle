@@ -31,7 +31,7 @@ subprojects {
         maven { url "http://repo.spring.io/libs-staging-local/" }
     }
 
-    group = 'com.example'
+    group = 'com.ftvalue.aggregation'
     version = '0.0.1'
     targetCompatibility = '1.8'
     sourceCompatibility = '1.8'
@@ -44,7 +44,7 @@ subprojects {
     }
 }
 
-project(':http-server') {
+project(':provider') {
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
         compile("org.springframework.boot:spring-boot-starter-actuator:1.4.5.RELEASE")
@@ -95,7 +95,6 @@ project(':http-server') {
 
     clean.doFirst {
         delete 'target/snippets/stubs'
-        delete "~/.m2/repository/com/example/http-server-restdocs-gradle"
     }
 
     task resolveDependencies {
@@ -113,7 +112,7 @@ project(':http-server') {
 
 }
 
-project(':http-client') {
+project(':consumer') {
     dependencies {
 
         compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
@@ -122,7 +121,6 @@ project(':http-client') {
 
         testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.5.RELEASE'
         testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock:1.0.4.RELEASE'
-//        testCompile "com.example:http-server-restdocs:0.0.1-SNAPSHOT:stubs"
     }
 
     test {

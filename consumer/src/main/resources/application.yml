@@ -1,4 +1,4 @@
-server:
+service:
   url: 114.215.242.9
   port: 18170
 logging:
