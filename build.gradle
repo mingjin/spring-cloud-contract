@@ -2,159 +2,66 @@ buildscript {
     repositories {
         mavenCentral()
         mavenLocal()
-        maven { url "http://repo.spring.io/libs-snapshot-local" }
         maven { url "http://repo.spring.io/libs-release-local" }
         maven { url "http://repo.spring.io/libs-staging-local/" }
-        maven { url 'http://repo.spring.io/plugins-snapshot' }
         maven { url "http://repo.spring.io/plugins-release-local" }
         maven { url "http://repo.spring.io/plugins-staging-local/" }
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.5.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$BOOT_VERSION"
     }
 }
 
-
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'groovy'
     apply plugin: 'org.springframework.boot'
-    apply plugin: 'maven-publish'
-    apply plugin: 'maven'
 
     repositories {
         mavenCentral()
         mavenLocal()
-        maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
         maven { url "http://repo.spring.io/libs-release-local" }
         maven { url "http://repo.spring.io/libs-staging-local/" }
     }
 
     group = 'com.ftvalue.aggregation'
-    version = '0.0.1'
+    version = '0.0.1-SNAPSHOT'
     targetCompatibility = '1.8'
     sourceCompatibility = '1.8'
 
     dependencyManagement {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:$BOM_VERSION"
-            mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:${project.findProperty('verifierVersion') ?: verifierVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-contract-dependencies:$CONTRACT_VERSION"
         }
     }
 }
 
 project(':contract') {
-    dependencies {
-
-        compile("org.springframework:spring-web:4.3.7.RELEASE")
-    }
 }
 
 project(':provider') {
     dependencies {
         compile project(':contract')
-        compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
-        compile("org.springframework.boot:spring-boot-starter-actuator:1.4.5.RELEASE")
+        compile("org.springframework.boot:spring-boot-starter-web:$BOOT_VERSION")
+        compile("org.springframework.boot:spring-boot-starter-actuator:$BOOT_VERSION")
 
-        testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.5.RELEASE'
-        testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock:1.0.4.RELEASE'
+        testCompile "org.springframework.boot:spring-boot-starter-test:$BOOT_VERSION"
+        testCompile "org.springframework.cloud:spring-cloud-contract-wiremock:$CONTRACT_VERSION"
 
-        testCompile 'com.google.code.gson:gson'
         testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
     }
-
-    test {
-        systemProperty 'spring.profiles.active', 'gradle'
-        testLogging {
-            exceptionFormat = 'full'
-        }
-    }
-
-    task wrapper(type: Wrapper) {
-        gradleVersion = '2.14'
-    }
-
-    task stubsJar(type: Jar, dependsOn: ['copySnippets', 'copySources', 'copyClasses']) {
-        baseName = project.name
-        classifier = 'stubs'
-        from project.file("${project.buildDir}/stubs")
-    }
-
-    artifacts {
-        archives stubsJar
-    }
-
-    task copySnippets(type: Copy, dependsOn: test) {
-        from "target/snippets/stubs"
-        into "${project.buildDir}/stubs/META-INF/${project.group}/${project.name}/${project.version}/mappings"
-    }
-
-    task copySources(type: Copy) {
-        from "src/main/java"
-        include '**/model/Fraud*.*'
-        into "${project.buildDir}/stubs/"
-    }
-
-    task copyClasses(type: Copy) {
-        from "${project.buildDir}/classes/main/"
-        include '**/model/Fraud*.*'
-        into "${project.buildDir}/stubs/"
-    }
-
-    clean.doFirst {
-        delete 'target/snippets/stubs'
-    }
-
-    task resolveDependencies {
-        doLast {
-            project.rootProject.allprojects.each { subProject ->
-                subProject.buildscript.configurations.each { configuration ->
-                    configuration.resolve()
-                }
-                subProject.configurations.each { configuration ->
-                    configuration.resolve()
-                }
-            }
-        }
-    }
-
 }
 
 project(':consumer') {
     dependencies {
         compile project(':contract')
 
-        compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
-        compile("org.springframework.boot:spring-boot-starter-actuator:1.4.5.RELEASE")
+        compile("org.springframework.boot:spring-boot-starter-web:$BOOT_VERSION")
+        compile("org.springframework.boot:spring-boot-starter-actuator:$BOOT_VERSION")
 
-
-        testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.5.RELEASE'
-        testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock:1.0.4.RELEASE'
-    }
-
-    test {
-        systemProperty 'spring.profiles.active', 'gradle'
-        testLogging {
-            exceptionFormat = 'full'
-        }
-    }
-
-    task wrapper(type: Wrapper) {
-        gradleVersion = '2.14'
-    }
-
-    task resolveDependencies {
-        doLast {
-            project.rootProject.allprojects.each { subProject ->
-                subProject.buildscript.configurations.each { configuration ->
-                    configuration.resolve()
-                }
-                subProject.configurations.each { configuration ->
-                    configuration.resolve()
-                }
-            }
-        }
+        testCompile "org.springframework.boot:spring-boot-starter-test:$BOOT_VERSION"
+        testCompile "org.springframework.cloud:spring-cloud-contract-wiremock:$CONTRACT_VERSION"
     }
 }
 
