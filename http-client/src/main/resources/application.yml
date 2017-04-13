@@ -1,4 +1,6 @@
-server.port: 8097
+server:
+  url: 114.215.242.9
+  port: 18170
 logging:
   level:
     org.springframework.web.client: debug

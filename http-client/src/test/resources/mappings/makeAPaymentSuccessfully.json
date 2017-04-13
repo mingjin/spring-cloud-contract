@@ -1,0 +1,24 @@
+{
+  "request" : {
+    "url" : "/fraudcheck",
+    "method" : "PUT",
+    "headers" : {
+      "Content-Type" : {
+        "matches" : "\\Qapplication/vnd.fraud.v1+json\\E.*"
+      }
+    },
+    "bodyPatterns" : [ {
+      "matchesJsonPath" : "$.clientId"
+    }, {
+      "matchesJsonPath" : "$[?(@.loanAmount > 1000)]"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"fraudCheckStatus\":\"FRAUD\",\"rejectionReason\":\"Amount too high\"}",
+    "headers" : {
+      "X-Application-Context" : "application:-1",
+      "Content-Type" : "application/vnd.fraud.v1+json;charset=UTF-8"
+    }
+  }
+}
