@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class PaymentConsumer {
@@ -19,13 +20,15 @@ public class PaymentConsumer {
 
 
     public PaymentResult pay(Payment payment) {
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseEntity<PaymentResult> response =
-                restTemplate.exchange(this.baseUrl + "/portal", HttpMethod.GET,
-                        new HttpEntity<>(payment, httpHeaders),
-                        PaymentResult.class);
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.baseUrl).path("/portal")
+                .queryParams(payment.toQueryParams());
+
+        final ResponseEntity<PaymentResult> response = restTemplate.exchange(builder.build().encode().toUri(),
+                HttpMethod.GET, new HttpEntity<>(headers), PaymentResult.class);
 
         return response.getBody();
     }

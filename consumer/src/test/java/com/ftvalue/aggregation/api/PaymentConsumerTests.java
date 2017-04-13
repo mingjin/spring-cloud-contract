@@ -1,7 +1,6 @@
 package com.ftvalue.aggregation.api;
 
 import com.ftvalue.aggregation.api.model.Payment;
-import com.ftvalue.aggregation.api.model.PaymentBuilder;
 import com.ftvalue.aggregation.api.model.PaymentResult;
 import org.junit.After;
 import org.junit.Before;
@@ -49,12 +48,12 @@ public class PaymentConsumerTests {
     @Test
     public void shouldMakeAPaymentSuccessfullyGivenCorrectOrderInfo() throws Exception {
         // given:
-        Payment payment = new PaymentBuilder().orderNo("316395233560657005").charset("GBK")
-                .sellerEmail("402673978@qq.com").backUrl("http://www.baidu.com/").defaultBank("ALIPAY")
-                .merchantID("100000000002004").isApp("web").notifyUrl("http://127.0.0.1:8090/return_url.jsp")
-                .title("test").body("testproductDesc").paymentType(1).payMethod("directPay")
-                .service("online_pay").totalFee(0.12).returnUrl("http://127.0.0.1:8090/return_url.jsp")
-                .userIp("116.228.54.118").sign();
+        Payment payment = new Payment("95ff8e3b2ff06eb4f894e46fb028ccedc8d2294e068632e810c10bg6adgegg05")
+                .set("order_no", "20170413232809").set("charset", "GBK").set("service", "online_pay")
+                .set("seller_email", "game211@126.com").set("merchant_ID", "100000000001986").set("isApp", "web")
+                .set("paymethod", "bankPay").set("notify_url", "https://test.payworth.net/notify_url.jsp")
+                .set("title", "1").set("body", "1").set("payment_type", 1).set("total_fee", 0.11F)
+                .set("return_url","https://test.payworth.net/return_url.jsp");
 
         // when:
         PaymentResult paymentResult = consumer.pay(payment);

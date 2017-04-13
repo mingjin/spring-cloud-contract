@@ -1,149 +1,59 @@
 package com.ftvalue.aggregation.api.model;
 
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Payment {
 
-    private String orderNo;
-    private String charset;
-    private String sellerEmail;
-    private String backUrl;
-    private String defaultBank;
-    private String merchantID;
-    private String isApp;
-    private String notifyUrl;
-    private String title;
-    private String body;
-    private int paymentType;
-    private String payMethod;
-    private String service;
-    private double totalFee;
-    private String returnUrl;
-    private String userIp;
+    private final String secureCode;
+    private final Map<String, String> map = new TreeMap<>();
 
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
+    public Payment(String secureCode) {
+        this.secureCode = secureCode;
     }
 
-    public String getOrderNo() {
-        return orderNo;
+    public String getSign() {
+        return DigestUtils.md5Hex(this.toString().concat(this.secureCode));
     }
 
-    public void setCharset(String charset) {
-        this.charset = charset;
+    public Payment set(String fieldName, String fieldValue) {
+        this.map.put(fieldName, fieldValue);
+        return this;
     }
 
-    public String getCharset() {
-        return charset;
+    public Payment set(String fieldName, int fieldValue) {
+        this.map.put(fieldName, Integer.toString(fieldValue));
+        return this;
     }
 
-    public void setSellerEmail(String sellerEmail) {
-        this.sellerEmail = sellerEmail;
+    public Payment set(String fieldName, Float fieldValue) {
+        this.map.put(fieldName, Float.toString(fieldValue));
+        return this;
     }
 
-    public String getSellerEmail() {
-        return sellerEmail;
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            final String value = entry.getValue();
+            if (StringUtils.isEmpty(value)) {
+                continue;
+            }
+            builder.append(String.format("%s=%s&", entry.getKey(), value));
+        }
+        return builder.deleteCharAt(builder.length() - 1).toString();
     }
 
-    public void setBackUrl(String backUrl) {
-        this.backUrl = backUrl;
-    }
-
-    public String getBackUrl() {
-        return backUrl;
-    }
-
-    public void setDefaultBank(String defaultBank) {
-        this.defaultBank = defaultBank;
-    }
-
-    public String getDefaultBank() {
-        return defaultBank;
-    }
-
-    public void setMerchantID(String merchantID) {
-        this.merchantID = merchantID;
-    }
-
-    public String getMerchantID() {
-        return merchantID;
-    }
-
-    public void setIsApp(String isApp) {
-        this.isApp = isApp;
-    }
-
-    public String getIsApp() {
-        return isApp;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setPaymentType(int paymentType) {
-        this.paymentType = paymentType;
-    }
-
-    public int getPaymentType() {
-        return paymentType;
-    }
-
-    public void setService(String service) {
-        this.service = service;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public void setTotalFee(double totalFee) {
-        this.totalFee = totalFee;
-    }
-
-    public double getTotalFee() {
-        return totalFee;
-    }
-
-    public void setReturnUrl(String returnUrl) {
-        this.returnUrl = returnUrl;
-    }
-
-    public String getReturnUrl() {
-        return returnUrl;
-    }
-
-    public void setUserIp(String userIp) {
-        this.userIp = userIp;
-    }
-
-    public String getUserIp() {
-        return userIp;
-    }
-
-    public String getPayMethod() {
-        return payMethod;
-    }
-
-    public void setPayMethod(String payMethod) {
-        this.payMethod = payMethod;
+    public MultiValueMap<String, String> toQueryParams() {
+        final MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.setAll(map);
+        multiValueMap.add("sign", this.getSign());
+        multiValueMap.add("sign_type", "MD5");
+        return multiValueMap;
     }
 }

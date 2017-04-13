@@ -1,10 +1,61 @@
 {
   "request" : {
-    "url" : "/portal",
+    "url" : "/portal?body=1&charset=GBK&isApp=web&merchant_ID=100000000001986&notify_url=https://test.payworth.net/notify_url.jsp&order_no=20170413232809&payment_type=1&paymethod=bankPay&return_url=https://test.payworth.net/return_url.jsp&seller_email=game211@126.com&service=online_pay&title=1&total_fee=0.11&sign=9fd12d5bab0f003a4013403f1157f66f&sign_type=MD5",
+//    "urlPattern": "/portal\\?.*",
     "method" : "GET",
     "headers" : {
       "Content-Type" : {
         "matches" : "application/json"
+      },
+      "Accept": {
+        "matches" : "application/json"
+      }
+    },
+    "queryParameters": {
+      "order_no": {
+        "matches": "[0-9]+"
+      },
+      "charset": {
+        "equalTo": "GBK"
+      },
+      "seller_email": {
+        "matches": "[0-9a-zA-Z]+@[a-z0-9].com"
+      },
+      "merchant_ID": {
+        "matches": "[0-9]+"
+      },
+      "isApp": {
+        "equalTo": "web"
+      },
+      "notify_url": {
+        "matches": "http://.+"
+      },
+      "return_url": {
+        "matches": "http://.+"
+      },
+      "payment_type": {
+        "equalTo": "1"
+      },
+      "paymethod": {
+        "equalTo": "bankPay"
+      },
+      "service": {
+        "equalTo": "online_pay"
+      },
+      "total_fee": {
+        "matches": "[0-9]+.[0-9]+"
+      },
+      "title": {
+        "matches": ".*"
+      },
+      "body": {
+        "matches": ".*"
+      },
+      "sign": {
+        "matches": "[0-9a-zA-Z]+"
+      },
+      "sign_type": {
+        "equalTo": "MD5"
       }
     }
   },
