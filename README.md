@@ -1,3 +1,3 @@
 # spring-cloud-contract
 
-This is a sample to demonstrate how spring-cloud-contract works for microservice projects.
+This is a sample project to demonstrate how spring-cloud-contract helps microservice Consumer-Driven-Contract.

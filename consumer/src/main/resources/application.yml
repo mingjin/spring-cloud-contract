@@ -1,6 +1,6 @@
 consumer:
   port: 18170
-  server: 114.215.242.9
+  server: localhost
 logging:
   level:
     org.springframework.web.client: debug
