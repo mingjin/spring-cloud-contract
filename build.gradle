@@ -44,15 +44,24 @@ subprojects {
     }
 }
 
+project(':contract') {
+    dependencies {
+
+        compile("org.springframework:spring-web:4.3.7.RELEASE")
+    }
+}
+
 project(':provider') {
     dependencies {
+        compile project(':contract')
         compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
         compile("org.springframework.boot:spring-boot-starter-actuator:1.4.5.RELEASE")
 
-        testCompile 'com.google.code.gson:gson'
         testCompile 'org.springframework.boot:spring-boot-starter-test:1.4.5.RELEASE'
-        testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
         testCompile 'org.springframework.cloud:spring-cloud-contract-wiremock:1.0.4.RELEASE'
+
+        testCompile 'com.google.code.gson:gson'
+        testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc:1.1.2.RELEASE'
     }
 
     test {
@@ -114,6 +123,7 @@ project(':provider') {
 
 project(':consumer') {
     dependencies {
+        compile project(':contract')
 
         compile("org.springframework.boot:spring-boot-starter-web:1.4.5.RELEASE")
         compile("org.springframework.boot:spring-boot-starter-actuator:1.4.5.RELEASE")

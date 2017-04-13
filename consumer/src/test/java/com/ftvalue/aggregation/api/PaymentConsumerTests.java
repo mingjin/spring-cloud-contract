@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.nio.charset.Charset;
 
 import com.ftvalue.aggregation.api.model.Payment;
+import com.ftvalue.aggregation.api.model.PaymentBuilder;
 import com.ftvalue.aggregation.api.model.PaymentResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -73,7 +74,6 @@ public class PaymentConsumerTests {
         PaymentResult paymentResult = consumer.pay(payment);
 
         // then:
-        assertThat(paymentResult.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(paymentResult.getBody()).isEqualTo("{\"status\":\"SUCCESS\"}");
     }
 

@@ -1,6 +1,4 @@
-package com.ftvalue.aggregation.api;
-
-import com.ftvalue.aggregation.api.model.Payment;
+package com.ftvalue.aggregation.api.model;
 
 public class PaymentBuilder {
     private Payment payment;

@@ -25,13 +25,11 @@ public class PaymentConsumer {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 
-        ResponseEntity<String> response =
+        ResponseEntity<PaymentResult> response =
                 restTemplate.exchange("http://" + server + ":" + port + "/portal", HttpMethod.GET,
                         new HttpEntity<>(payment, httpHeaders),
-                        String.class);
+                        PaymentResult.class);
 
-        PaymentResult paymentResult = new PaymentResult(response.getStatusCode(), response.getBody());
-
-        return paymentResult;
+        return response.getBody();
     }
 }
