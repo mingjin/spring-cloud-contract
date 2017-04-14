@@ -10,11 +10,12 @@ import java.util.TreeMap;
 
 public class Payment {
 
-    private final String secureCode;
     private final Map<String, String> map = new TreeMap<>();
+    private String secureCode = StringUtils.EMPTY;
 
-    public Payment(String secureCode) {
+    public Payment secureCode(String secureCode) {
         this.secureCode = secureCode;
+        return this;
     }
 
     public String getSignature() {
