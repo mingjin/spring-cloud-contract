@@ -17,7 +17,7 @@ public class Payment {
         this.secureCode = secureCode;
     }
 
-    public String getSign() {
+    public String getSignature() {
         return DigestUtils.md5Hex(this.toString().concat(this.secureCode));
     }
 
@@ -52,7 +52,7 @@ public class Payment {
     public MultiValueMap<String, String> toQueryParams() {
         final MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.setAll(map);
-        multiValueMap.add("sign", this.getSign());
+        multiValueMap.add("sign", this.getSignature());
         multiValueMap.add("sign_type", "MD5");
         return multiValueMap;
     }

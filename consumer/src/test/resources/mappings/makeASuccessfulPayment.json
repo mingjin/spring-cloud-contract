@@ -2,14 +2,6 @@
   "request" : {
     "urlPath": "/portal",
     "method" : "GET",
-    "headers" : {
-      "content-type" : {
-        "matches" : "application/json"
-      },
-      "accept": {
-        "matches" : "application/json"
-      }
-    },
     "queryParameters": {
       "order_no": {
         "matches": "[0-9]+"
@@ -60,7 +52,7 @@
   },
   "response" : {
     "status" : 200,
-    "body" : "{\"body\":\"{\\\"status\\\":\\\"SUCCESS\\\"}\"}",
+    "body" : "{\"status\":\"SUCCESS\", \"amount\": \"124\"}",
     "headers" : {
       "Content-Type" : "application/json;charset=UTF-8"
     }

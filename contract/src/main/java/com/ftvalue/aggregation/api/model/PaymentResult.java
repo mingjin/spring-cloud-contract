@@ -1,17 +1,24 @@
 package com.ftvalue.aggregation.api.model;
 
 public class PaymentResult {
-    private String body;
+    private String status;
+    private float amount;
 
-    public PaymentResult() {
+    public String getStatus() {
+        return status;
     }
 
-    public PaymentResult(String body) {
-        this.body = body;
+    public float getAmount() {
+        return amount;
     }
 
+    public PaymentResult status(String status) {
+        this.status = status;
+        return this;
+    }
 
-    public String getBody() {
-        return body;
+    public PaymentResult amount(float amount) {
+        this.amount = amount;
+        return this;
     }
 }

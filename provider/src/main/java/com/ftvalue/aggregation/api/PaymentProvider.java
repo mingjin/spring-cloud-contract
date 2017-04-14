@@ -19,6 +19,6 @@ public class PaymentProvider {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public PaymentResult pay(@RequestBody Payment payment) {
 
-        return new PaymentResult("{\"status\":\"SUCCESS\"}");
+        return new PaymentResult().status("SUCCESS").amount(100.11F);
     }
 }

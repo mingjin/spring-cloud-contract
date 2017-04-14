@@ -25,6 +25,6 @@ public class PaymentTests {
                 .set("return_url","https://test.payworth.net/return_url.jsp");
 
         assertThat(payment.toString(), equalTo("body=1&charset=GBK&isApp=web&merchant_ID=100000000001986&notify_url=https://test.payworth.net/notify_url.jsp&order_no=20170413232809&payment_type=1&paymethod=bankPay&return_url=https://test.payworth.net/return_url.jsp&seller_email=game211@126.com&service=online_pay&title=1&total_fee=0.11"));
-        assertThat(payment.getSign(), equalTo("9fd12d5bab0f003a4013403f1157f66f"));
+        assertThat(payment.getSignature(), equalTo("9fd12d5bab0f003a4013403f1157f66f"));
     }
 }
