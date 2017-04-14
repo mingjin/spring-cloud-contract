@@ -37,7 +37,7 @@ public class PaymentProviderTests {
 
     @Test
     public void shouldMakeAPaymentSuccessfully() throws Exception {
-        Payment payment = new Payment();
+        Payment payment = new Payment(null);
         mockMvc.perform(MockMvcRequestBuilders.get("/portal").contentType(MediaType.APPLICATION_JSON)
                 .content(json.write(payment).getJson()))
                 .andExpect(status().isOk())

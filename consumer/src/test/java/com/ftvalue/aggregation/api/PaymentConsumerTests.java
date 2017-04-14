@@ -2,51 +2,44 @@ package com.ftvalue.aggregation.api;
 
 import com.ftvalue.aggregation.api.model.Payment;
 import com.ftvalue.aggregation.api.model.PaymentResult;
-import org.junit.After;
-import org.junit.Before;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.contract.wiremock.WireMockRestServiceServer;
+import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock;
+import org.springframework.core.io.Resource;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.util.StreamUtils;
+
+import java.nio.charset.Charset;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(properties="payment.service.baseUrl=http://localhost:18170", webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureWireMock(port=18170, stubs="classpath:mappings")
 @DirtiesContext
 public class PaymentConsumerTests {
 
-    @Value("${payment.service.baseUrl}")
-    private String baseUrl;
-
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Value("classpath:mappings/makeAPaymentSuccessfully.json")
+//    private Resource makeAPaymentSuccessfully;
 
     @Autowired
     private PaymentConsumer consumer;
 
-    private MockRestServiceServer server;
-
-    @Before
-    public void before() {
-        server = WireMockRestServiceServer.with(this.restTemplate)
-                .baseUrl(this.baseUrl)
-                .stubs("classpath:mappings/*.json").build();
-    }
-
-    @After
-    public void after() {
-        server.verify();
-    }
+//    @Autowired
+//    private WireMockServer server;
 
     @Test
     public void shouldMakeAPaymentSuccessfullyGivenCorrectOrderInfo() throws Exception {
+//        // stub:
+//        server.addStubMapping(StubMapping.buildFrom(StreamUtils.copyToString(
+//                makeAPaymentSuccessfully.getInputStream(), Charset.forName("UTF-8"))));
+
         // given:
         Payment payment = new Payment("95ff8e3b2ff06eb4f894e46fb028ccedc8d2294e068632e810c10bg6adgegg05")
                 .set("order_no", "20170413232809").set("charset", "GBK").set("service", "online_pay")
