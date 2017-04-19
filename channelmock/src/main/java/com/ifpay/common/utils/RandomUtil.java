@@ -55,7 +55,9 @@ public class RandomUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println("901" + DateUtil.getTimeFormat() + RandomUtil.getNumber(8));
+        // 2017041921001004200269337163
+//         2017041921001008523890003488
+        System.out.println(DateUtil.getDate("yyyyMMdd") + "2100100" + RandomUtil.getNumber(13));
 //        System.out.println("https://qr.alipay.com/bax" + RandomUtil.getNumber(5) + RandomUtil.getCharAndNumr(16));
 
     }

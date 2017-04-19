@@ -100,13 +100,15 @@ public class MD5Utils {
         SortedMap<String, String> sortedMap = new TreeMap<String, String>(params);
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            sb.append("&").append(entry.getKey()).append("=").append(URLDecoder.decode(entry.getValue(),"utf-8"));
+            if (StringUtils.isNotEmpty(entry.getValue())) {
+                sb.append("&").append(entry.getKey()).append("=").append(URLDecoder.decode(entry.getValue(),"utf-8"));
+            }
         }
         String result = sb.length() > 0 ? sb.substring(1) : sb.toString();
         return result;
     }
 
-    public static String md5Sign(TreeMap<String, String> params, String key) throws Exception {
+    public static String md5Sign(Map<String, String> params, String key) throws Exception {
         String signString;
         String result;
         try {

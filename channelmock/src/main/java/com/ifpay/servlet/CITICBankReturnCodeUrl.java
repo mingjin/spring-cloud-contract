@@ -49,11 +49,6 @@ public class CITICBankReturnCodeUrl extends HttpServlet {
         String key = KeyUtils.getKey(receiveMap.get("merId").toString());
         String respCode = "0000";
         String respMsg = "交易成功";
-        String txnTime = DateUtil.getTimeFormat();
-        String txnSeqId = "951" + txnTime + RandomUtil.getNumber(8);
-        String seqId = "901" + txnTime + RandomUtil.getNumber(8);
-        String prepayId = "wx" + txnTime  + RandomUtil.getCharAndNumr(20);
-//        String codeUrl = "weixin://wxpay/bizpayurl?pr=" + RandomUtil.getCharAndNumr(7);
 
         // 如果金额等于99.99返回状态为失败
         if (receiveMap.get("txnAmt").equals("9999")) {
@@ -61,17 +56,11 @@ public class CITICBankReturnCodeUrl extends HttpServlet {
             respMsg = "交易出现异常。详情请咨询";
         }
 
-        // 根据不同渠道拼装请求Map
-        TreeMap signMap = new TreeMap();
+        // 根据不同渠道拼装返码Map
+        Map signMap = new ConcurrentHashMap();
         signMap.put("respCode", respCode);
         signMap.put("respMsg", respMsg);
-        signMap.put("txnTime", txnTime);
-        signMap.put("txnSeqId", txnSeqId);
-        signMap.put("prepayId", prepayId);
-        signMap.put("seqId", seqId);
-//        signMap.put("codeUrl", codeUrl);
-
-        signMap = ChannelService.buildChannelMap(receiveMap, signMap);
+        signMap = ChannelService.buildReCodeUrlMap(receiveMap, signMap);
 
         String signAture = null;
         try {
