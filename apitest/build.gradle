@@ -70,6 +70,11 @@ project(':consumer') {
 
         testCompile "org.springframework.boot:spring-boot-starter-test:$BOOT_VERSION"
         testCompile "org.springframework.cloud:spring-cloud-contract-wiremock:$CONTRACT_VERSION"
+        testCompile 'com.alibaba:fastjson:1.2.31'
+        testCompile "org.apache.jmeter:ApacheJMeter_core:3.1"
+        testCompile "org.apache.jmeter:ApacheJMeter_java:3.1"
+        testCompile "org.apache.jmeter:ApacheJMeter_junit:3.1"
+
     }
 }
 
