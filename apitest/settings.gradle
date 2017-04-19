@@ -1,4 +1,4 @@
-rootProject.name = 'spring-cloud-contract'
+rootProject.name = 'apitest'
 
 include 'provider', 'consumer', 'contract'
 
