@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<script src="../js/pay.js" type="text/javascript" language="javascript">
+</script>
+<script type="text/javascript" language="javascript">
+    window.onload = function () {
+        getFormatDate('batchDate');
+        getBatchCurrnum('batchCurrnum');
+        getFormatDate('protocolNumber');
+        getOrderId('orderId');
+        getRandomAcctNo('payeeName', 'payeeAcctNo', 'payeeAcctBankName','remark');
+        getRandomAmount('amount');
+    };
+</script>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="GBK">
+    <title>提交单笔代付订单</title>
+</head>
+<body>
+<form name="form1" id="form1" method="post" action="PayAgentRequest.jsp">
+    <center>
+
+        <font size="4" color="black">
+            <b>提交单笔代付订单</b>
+        </font>
+    </center>
+    <table class="api" align="center">
+        <tr>
+            <td align="left">请求地址</td>
+            <td>
+                <input align="left" type="text" name="requestUrl" id="requestUrl"
+                       value="http://114.215.242.9:18161/agentpay/pay">
+                <font color="red">*</font>
+            </td>
+            <td>
+                <select align="left" name="requestUrlTemp" id="requestUrlTemp"
+                        onchange="SelectValue(this.options[this.options.selectedIndex].value,'requestUrl')">
+                    <option value="http://114.215.202.134:18161/agentpay/pay">研发环境</option>
+                    <option selected="selected" value="http://114.215.242.9:18161/agentpay/pay">测试环境</option>
+                    <option value="http://xxx.xxx.xxx.xxx:18161/agentpay/pay">生产环境</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">批次号</td>
+            <td>
+                <input align="left" type="text" name="batchCurrnum" id="batchCurrnum" value=""/>
+                <font color="red">*</font>
+                <input type="button" onclick="getBatchCurrnum('batchCurrnum')" value="刷新"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">编码格式</td>
+            <td>
+                <input align="left" type="text" name="inputCharset" id="inputCharset" value="gbk" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户号</td>
+            <td>
+                <input align="left" type="text" name="batchBizid" id="batchBizid" value="100000000002285"/>
+                <font color="red">*</font>
+            </td>
+            <td>
+                <select align="left" name="channel" id="channel"
+                        onchange="SelectValue(this.options[this.options.selectedIndex].value,'batchBizid')">
+                    <option selected="selected" value="YLJZ-100000000002262">矩真银联</option>
+                    <option value="UP-100000000002004">合众</option>
+                    <option value="PEE-100000000002084">华势</option>
+                    <option value="JYT-100000000002224">金运通</option>
+                    <option selected="selected" value="100000000002285">测试商户</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">版本号</td>
+            <td>
+                <input align="left" type="text" name="batchVersion" id="batchVersion" value="00" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">批次日期</td>
+            <td>
+                <input align="left" type="text" name="batchDate" id="batchDate" value="" />
+                <font color="red">*</font>
+                <!--<input type="button" onclick="getFormatDate('batchDate')" value="刷新"/>-->
+            </td>
+        </tr>
+        <tr>
+            <td align="left">加签方式</td>
+            <td>
+                <input align="left" type="text" name="signTepe" id="signType" value="MD5" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商业类型</td>
+            <td>
+                <input align="left" type="text" name="batchBiztype" id="batchBiztype" value="00000" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户KEY</td>
+            <td>
+                <input align="left" type="text" name="key" id="key" value="">
+            </td>
+            <td align="left">
+                默认为空，如果key有修改，可手工输入
+            </td>
+        </tr>
+        <tr>
+            <td align="left">总笔数</td>
+            <td>
+                <input align="left" type="text" name="batchCount" id="batchCount" value="1" />
+            <td align="left">
+                发起交易笔数
+            </td>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">总金额</td>
+            <td>
+                <input align="left" type="text" name="batchAmount" id="batchAmount" value="0.01" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">银行账户</td>
+            <td>
+                <input align="left" type="text" name="payeeAcctNo" id="payeeAcctNo" value="" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">开户名</td>
+            <td>
+                <input align="left" type="text" name="payeeName" id="payeeName" value="" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">开户行</td>
+            <td>
+                <input align="left" type="text" name="payeeAcctBankName" id="payeeAcctBankName" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left">分行</td>
+            <td>
+                <input align="left" type="text" name="bankBranch" id="bankBranch" value="分行">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">支行</td>
+            <td>
+                <input align="left" type="text" name="bankSubbranch" id="bankSubbranch" value="支行">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">账户类型</td>
+            <td>
+                <select name="payeeAcctType" id="payeeAcctType" >
+                    <option value="公">对公</option>
+                    <option value="私" selected = "selected">对私</option>
+                </select>
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">交易金额</td>
+            <td>
+                <input align="left" type="text" name="amount" id="amount" value="" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">交易币种</td>
+            <td>
+                <input align="left" type="text" name="currency" id="currency" value="CNY" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">省</td>
+            <td>
+                <input align="left" type="text" name="province" id="province" value="上海"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">市</td>
+            <td>
+                <input align="left" type="text" name="city" id="city" value="上海"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">手机号</td>
+            <td>
+                <input align="left" type="text" name="mobile" id="mobile" value=""/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">证件类型</td>
+            <td>
+                <select name="payeeIdType" id="payeeIdType" >
+                    <option value="">无</option>
+                    <option value="01">身份证</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">证件号</td>
+            <td>
+                <input align="left" type="text" name="payeeIdNo" id="payeeIdNo" value="">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">用户协议号</td>
+            <td>
+                <input align="left" type="text" name="protocolNumber" id="protocolNumber" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户订单号</td>
+            <td>
+                <input align="left" type="text" name="orderId" id="orderId" value="" />
+                <input type="button" onclick="getOrderId('orderId')" value="刷新"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">资金用途</td>
+            <td>
+                <input align="left" type="text" name="remark" id="remark" value=""/>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left"></td>
+            <td>
+                <input type="submit" id="btn" value="提交" onclick="return checkKey('requestUrlTemp','key');"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

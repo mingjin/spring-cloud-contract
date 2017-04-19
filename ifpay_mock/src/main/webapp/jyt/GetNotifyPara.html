@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<script src="../js/pay.js" type="text/javascript" language="javascript">
+</script>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>获取商户通知参数</title>
+</head>
+<body>
+
+<form name="form1" id="form1" method="post" action="GetNotifyPara.jsp">
+    <center>
+
+        <font size="4" color="black">
+            <b>获取商户通知参数</b>
+        </font>
+    </center>
+    <table align="center">
+        <tr>
+            <td align="left">请求地址</td>
+            <td>
+                <input align="left" type="text" name="requestUrl" id="requestUrl"
+                       value="http://10.199.48.91:8080/payment/pay/tx/notify"/>
+                <font color="red">*</font>
+            </td>
+            <td>
+                <select align="left" name="requestUrlTemp" id="requestUrlTemp"
+                        onchange="SelectValue(this.options[this.options.selectedIndex].value,'requestUrl')">
+                    <option value="http://10.199.48.91:8080/payment/pay/tx/notify">测试环境</option>
+                    <option value="http://10.199.48.98:8080/payment/pay/tx/notify">回归环境</option>
+                    <option value="http://10.198.194.105:8080/payment/pay/tx/notify">研发环境</option>
+                    <option value="http://payment.api.vipme.com/payment/pay/tx/notify">生产环境</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">成功的交易id:</td>
+            <td>
+                <input align="left" type="text" name="txId" id="txId" value="1"/>
+                <font color="red">*</font>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left"></td>
+            <td>
+                <input type="submit" id="btn" value="提交"/>
+            </td>
+        </tr>
+
+    </table>
+</form>
+
+
+</body>
+</html>

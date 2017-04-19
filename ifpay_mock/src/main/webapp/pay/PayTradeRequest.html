@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<script src="../js/pay.js" type="text/javascript" language="javascript">
+</script>
+<script type="text/javascript" language="javascript">
+    window.onload = function () {
+        getNowFormatDate('orderNo');
+    };
+    function CheckForm()
+    {
+        if (document.payment.defaultBank.value == "EBANK") {
+            document.payment.action = "../ebank/index.jsp";
+        } else {
+            document.payment.action = "PayTradeRequest.jsp";
+        }
+        if (document.payment.defaultBank.value == -1) {
+            alert("请选择支付方式.");
+            document.payment.defaultBank.focus();
+            return false;
+        }
+        if (document.payment.defaultBank.value != -1 && document.payment.defaultBank.value != "EBANK" && document.payment.isApp.value == -1) {
+            alert("请选择接入方式.");
+            document.payment.isApp.focus();
+            return false;
+        }
+    }
+    function $(obj){return document.getElementById(obj);}
+    function show(objid) {$(objid).style.display='inline';}
+    function hidden(objid) {$(objid).style.display='none';}
+    function showIsApp() {
+        var defaultBank_val = $('defaultBank').value;
+        if (defaultBank_val == 'WXPAY' || defaultBank_val == 'ALIPAY') {
+            show('isAppTd');
+            show('isApp');
+        }
+        if (defaultBank_val == '-1' || defaultBank_val == ("EBANK")) {
+            hidden('isAppTd');
+            hidden('isApp');
+        }
+    }
+    function showH5Params() {
+        var isApp_val = $('isApp').value;
+        if (isApp_val == '-1' || isApp_val == 'app' || isApp_val == 'web') {
+            hidden('tipsTd');
+            hidden('appNameTd');
+            hidden('appMsgTd');
+            hidden('appTypeTd');
+            hidden('backUrlTd');
+            hidden('appName');
+            hidden('appMsg');
+            hidden('appType');
+            hidden('backUrl');
+        }
+        if (isApp_val == ("h5")) {
+            show('tipsTd');
+            show('appNameTd');
+            show('appMsgTd');
+            show('appTypeTd');
+            show('backUrlTd');
+            show('appName');
+            show('appMsg');
+            show('appType');
+            show('backUrl');
+        }
+    }
+</script>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta charset="GBK">
+    <title>提交单笔支付订单</title>
+</head>
+<body>
+<form name="payment" onSubmit="return CheckForm();" action="PayTradeRequest.jsp" method="post" target="_blank">
+    <center>
+        <font size="4" color="black">
+            <b>提交单笔支付订单</b>
+        </font>
+    </center>
+    <table class="api" align="center">
+        </br>
+        <tr>
+            <td align="left">请求地址</td>
+            <td>
+                <input align="left" type="text" name="requestUrl" id="requestUrl"
+                       value="http://114.215.242.9:18170/portal">
+                <font color="red">*</font>
+            </td>
+            <td>
+                <select align="left" name="requestUrlTemp" id="requestUrlTemp"
+                        onchange="SelectUrl(this.options[this.options.selectedIndex].value,'requestUrl','notifyUrl','returnUrl','buyerEmail')">
+                    <option value="1">研发环境</option>
+                    <option selected="selected" value="2">测试环境</option>
+                    <option value="3">性能环境</option>
+                    <option value="4">生产环境</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商品名称</td>
+            <td>
+                <input align="left" type="text" name="productName" id="productName" value="productName"/>
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商品描述</td>
+            <td>
+                <input align="left" type="text" name="productDesc" id="productDesc" value="productDesc"/>
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">付款金额</td>
+            <td>
+                <input align="left" type="text" name="tradeAmount" id="tradeAmount" value="0.01" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">币种</td>
+            <td>
+                <select name="currency" id="currency">
+                    <option value="156">CNY</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">支付方式</td>
+            <td>
+                <select name="defaultBank" id="defaultBank" onchange="javascript:showIsApp();">
+                    <option value="-1">请选择</option>
+                    <option value="WXPAY">微信</option>
+                    <option value="ALIPAY">支付宝</option>
+                    <option value="EBANK">网银</option>
+                </select>
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" id="isAppTd" style="display:none;">接入方式</td>
+            <td>
+                <select name="isApp" id="isApp" style="display:none;" onchange="javascript:showH5Params();">
+                    <option value="-1">请选择</option>
+                    <option value="app">app接入</option>
+                    <option value="web">web接入</option>
+                    <option value="h5">h5接入</option>
+                </select>
+                <!--<font color="red">*</font>-->
+            </td>
+        </tr>
+        <tr>
+            <td align="left">付款企业</td>
+            <td>
+                <input align="left" type="text" name="payerName" id="payerName" value="付款企业"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户号</td>
+            <td>
+                <input align="left" type="text" name="merchantId" id="merchantId" value="100000000002262"/>
+                <font color="red">*</font>
+            </td>
+            <td>
+                <select align="left" name="channel" id="channel"
+                        onchange="SelectMerchant(this.options[this.options.selectedIndex].value,'merchantId','sellerEmail')">
+                    <option value="1">100000000002004</option>
+                    <option selected="selected" value="2">100000000002262</option>
+                    <option value="3">100000000002084</option>
+                    <option value="4">100000000002224</option>
+                    <option value="5">100000000002285</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">管理员邮箱</td>
+            <td>
+                <input align="left" type="text" name="sellerEmail" id="sellerEmail" value="jianfeng.xu@ftvalue.com" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户KEY</td>
+            <td>
+                <input align="left" type="text" name="key" id="key" value="">
+            </td>
+            <td align="left">
+                默认为空，如果key有修改，可手工输入
+            </td>
+        </tr>
+        <tr>
+            <td align="left">商户订单号</td>
+            <td>
+                <input align="left" type="text" name="orderNo" id="orderNo" value="" />
+                <input type="button" onclick="getNowFormatDate('orderNo')" value="刷新"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">接口服务名称</td>
+            <td>
+                <input align="left" type="text" name="service" id="service" value="online_pay">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">支付方式</td>
+            <td>
+                <input align="left" type="text" name="payMethod" id="payMethod" value="directPay" />
+            </td>
+        </tr>
+        <tr>
+            <td align="left">加签方式</td>
+            <td>
+                <input align="left" type="text" name="signType" id="signType" value="MD5" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">支付类型</td>
+            <td>
+                <input align="left" type="text" name="paymentType" id="paymentType" value="1">
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left">通知地址</td>
+            <td>
+                <input align="left" type="text" name="notifyUrl" id="notifyUrl" value="http://127.0.0.1:8090/notify_url.jsp">
+            </td>
+        </tr>
+        <tr>
+            <td align="left">回调地址</td>
+            <td>
+                <input align="left" type="text" name="returnUrl" id="returnUrl" value="http://127.0.0.1:8090/return_url.jsp">
+            </td>
+        </tr>
+        <tr>
+            <td hidden="hidden" align="left">买家互付账号</td>
+            <td>
+                <input hidden="hidden" align="left" type="text" name="buyerEmail" id="buyerEmail" value="2"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">编码格式</td>
+            <td>
+                <input align="left" type="text" name="charset" id="charset" value="GBK" />
+                <font color="red">*</font>
+            </td>
+        </tr>
+        <tr>
+            <td align="left">用户IP</td>
+            <td>
+                <input align="left" type="text" name="userIp" id="userIp" value="116.228.54.118"/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td id="tipsTd" style="display:none;"><font color="red">**接入方式为H5填写参数**</font></td>
+        </tr>
+        <tr>
+            <td align="left" id="appNameTd" style="display:none;">appName</td>
+            <td>
+                <input align="left" type="text" name="appName" id="appName" value="test" style="display:none;"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" id="appMsgTd" style="display:none;">appMsg</td>
+            <td>
+                <input align="left" type="text" name="appMsg" id="appMsg" value="www.baidu.com" style="display:none;"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" id="appTypeTd"  style="display:none;">appType</td>
+            <td>
+                <input align="left" type="text" name="appType" id="appType" value="wap" style="display:none;"/>
+            </td>
+        </tr>
+        <tr>
+            <td align="left" id="backUrlTd" style="display:none;">backUrl</td>
+            <td>
+                <input align="left" type="text" name="backUrl" id="backUrl" value="https://www.baidu.com/" style="display:none;"/>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="left"></td>
+            <td>
+                <input type="submit" id="btn" value="确认支付" onclick="return true;"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
