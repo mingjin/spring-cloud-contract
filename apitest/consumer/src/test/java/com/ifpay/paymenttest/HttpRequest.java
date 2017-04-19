@@ -1,6 +1,5 @@
 package com.ifpay.paymenttest;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -31,7 +30,7 @@ public class HttpRequest {
 
         // �����������
         StringBuffer sb = new StringBuffer();
-        String sendString = "" ;
+        String sendString = "";
         if (params != null) {
             for (Entry<String, String> e : params.entrySet()) {
                 sb.append(e.getKey());
@@ -89,29 +88,29 @@ public class HttpRequest {
         method.setRequestHeader("Content-type", "text/xml; charset=gbk");
         method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
         method.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, new Integer(60000));
-        try{
+        try {
             URL url = new URL(reqMap.get("requestUrl").toString());
             method.setPath(url.getPath());
-            if(reqMap.get("requestUrl").toString().indexOf("https")==0){
+            if (reqMap.get("requestUrl").toString().indexOf("https") == 0) {
                 //https
                 //TODO
             } else {
-                client.getHostConfiguration().setHost(url.getHost(),url.getPort(),url.getProtocol());
+                client.getHostConfiguration().setHost(url.getHost(), url.getPort(), url.getProtocol());
             }
-            NameValuePair[] nameValuePairs=new org.apache.commons.httpclient.NameValuePair[signMap.size()];
-            for(int i=0; i < signMap.size(); i++){
-                String name = (String)keys.get(i);
-                String value = (String)signMap.get(name);
+            NameValuePair[] nameValuePairs = new org.apache.commons.httpclient.NameValuePair[signMap.size()];
+            for (int i = 0; i < signMap.size(); i++) {
+                String name = (String) keys.get(i);
+                String value = (String) signMap.get(name);
                 nameValuePairs[i] = new org.apache.commons.httpclient.NameValuePair(name, value);
             }
             method.setQueryString(nameValuePairs);
             int rescode = client.executeMethod(method);
             System.out.println(reqMap.get("requestUrl").toString() + " rescode:" + rescode);
-            if (rescode == 200){
-                BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream(),"utf-8"));
+            if (rescode == 200) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream(), "utf-8"));
                 String curline = "";
-                while((curline = reader.readLine())!=null){
-                    response+=curline;
+                while ((curline = reader.readLine()) != null) {
+                    response += curline;
                 }
                 System.out.println(reqMap.get("requestUrl").toString() + " response:" + response);
             } else {
@@ -157,18 +156,18 @@ public class HttpRequest {
 //        return result;
 //    }
 
-    public static String httpReq(String httpUrl, Map sPara){
-        String response="";
+    public static String httpReq(String httpUrl, Map sPara) {
+        String response = "";
         List keys = new ArrayList(sPara.keySet());
         org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
         PostMethod method = new PostMethod();
         method.setRequestHeader("Content-type", "text/xml; charset=GB2312");
-        method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,new DefaultHttpMethodRetryHandler());
-        method.getParams().setParameter(HttpMethodParams.SO_TIMEOUT,new Integer(60000));
+        method.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
+        method.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, new Integer(60000));
         try {
             URL url = new URL(httpUrl);
             method.setPath(url.getPath());
-            client.getHostConfiguration().setHost(url.getHost(), url.getPort(),url.getProtocol());
+            client.getHostConfiguration().setHost(url.getHost(), url.getPort(), url.getProtocol());
             org.apache.commons.httpclient.NameValuePair[] nameValuePairs = new org.apache.commons.httpclient.NameValuePair[sPara.size()];
             for (int i = 0; i < sPara.size(); i++) {
                 String name = (String) keys.get(i);
@@ -179,7 +178,7 @@ public class HttpRequest {
             int rescode = client.executeMethod(method);
             System.out.println(httpUrl + " rescode:" + rescode);
             if (rescode == 200) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream(),"utf-8"));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(method.getResponseBodyAsStream(), "utf-8"));
                 String curline = "";
                 while ((curline = reader.readLine()) != null) {
                     response += curline;
@@ -198,6 +197,7 @@ public class HttpRequest {
 
     /**
      * ƴװhtml
+     *
      * @param reqMap
      * @param signMap
      * @param sign
@@ -215,7 +215,7 @@ public class HttpRequest {
         for (int i = 0; i < keys.size(); i++) {
             name = (String) keys.get(i);
             value = (String) signMap.get(name);
-            if(value != null && !"".equals(value)){
+            if (value != null && !"".equals(value)) {
                 sbHtml.append("<input type=\"hidden\" name=\"").append(name).append("\" value=\"" + value + "\"/>");
             }
         }
@@ -372,8 +372,8 @@ public class HttpRequest {
         String[] array1 = array0[1].split("</form>");
         String[] array2 = array1[0].split("<input type=hidden ");
         for (int i = 1; i < array2.length; i++) {
-            String[] temp = array2[i].replace("/>","").replace("\"","").split(" value=");
-            String key = temp[0].replace("name=","").trim();
+            String[] temp = array2[i].replace("/>", "").replace("\"", "").split(" value=");
+            String key = temp[0].replace("name=", "").trim();
             String value = temp[1].trim();
             map.put(key, value);
         }
@@ -428,7 +428,6 @@ public class HttpRequest {
             respone = sendPost("http://localhost:8888/CITICBank", requestMap);
 
             System.out.println("respone = " + respone.split("=")[1].replace("+", "#"));
-
 
 
             String receiveJson = new String(Base64.decodeBase64(respone.split("=")[1].replace("+", "#")));

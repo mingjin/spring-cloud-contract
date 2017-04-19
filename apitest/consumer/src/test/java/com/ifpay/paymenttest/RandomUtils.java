@@ -1,9 +1,5 @@
 package com.ifpay.paymenttest;
 
-import com.alibaba.fastjson.JSONArray;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 /**

@@ -5,60 +5,58 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Md5Encrypt {
-	/**
-	 * Used building output as Hex
-	 */
-	private static final char[] DIGITS = { '0', '1', '2', '3', '4', '5', '6',
-			'7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    /**
+     * Used building output as Hex
+     */
+    private static final char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6',
+            '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
-	/**
-	 * ???????????MD5????
-	 * 
-	 * @param text
-	 *            ????
-	 * 
-	 * @return ????
-	 */
-	public static String md5(String text) {
-		MessageDigest msgDigest = null;
-		//System.out.println("????????????"+text);
-		try {
-			msgDigest = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			throw new IllegalStateException(
-					"System doesn't support MD5 algorithm.");
-		}
+    /**
+     * ???????????MD5????
+     *
+     * @param text ????
+     * @return ????
+     */
+    public static String md5(String text) {
+        MessageDigest msgDigest = null;
+        //System.out.println("????????????"+text);
+        try {
+            msgDigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException(
+                    "System doesn't support MD5 algorithm.");
+        }
 
-		try {
-			msgDigest.update(text.getBytes("gbk"));    //????????????????????????
- 
-		} catch (UnsupportedEncodingException e) {
+        try {
+            msgDigest.update(text.getBytes("gbk"));    //????????????????????????
 
-			throw new IllegalStateException(
-					"System doesn't support your  EncodingException.");
+        } catch (UnsupportedEncodingException e) {
 
-		}
+            throw new IllegalStateException(
+                    "System doesn't support your  EncodingException.");
 
-		byte[] bytes = msgDigest.digest();
+        }
 
-		String md5Str = new String(encodeHex(bytes));
+        byte[] bytes = msgDigest.digest();
 
-		return md5Str;
-	}
+        String md5Str = new String(encodeHex(bytes));
 
-	public static char[] encodeHex(byte[] data) {
+        return md5Str;
+    }
 
-		int l = data.length;
+    public static char[] encodeHex(byte[] data) {
 
-		char[] out = new char[l << 1];
+        int l = data.length;
 
-		// two characters form the hex value.
-		for (int i = 0, j = 0; i < l; i++) {
-			out[j++] = DIGITS[(0xF0 & data[i]) >>> 4];
-			out[j++] = DIGITS[0x0F & data[i]];
-		}
+        char[] out = new char[l << 1];
 
-		return out;
-	}
+        // two characters form the hex value.
+        for (int i = 0, j = 0; i < l; i++) {
+            out[j++] = DIGITS[(0xF0 & data[i]) >>> 4];
+            out[j++] = DIGITS[0x0F & data[i]];
+        }
+
+        return out;
+    }
 
 }

@@ -100,7 +100,7 @@ public class MD5Utils {
         SortedMap<String, String> sortedMap = new TreeMap<String, String>(params);
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            sb.append("&").append(entry.getKey()).append("=").append(URLDecoder.decode(entry.getValue(),"utf-8"));
+            sb.append("&").append(entry.getKey()).append("=").append(URLDecoder.decode(entry.getValue(), "utf-8"));
         }
         String result = sb.length() > 0 ? sb.substring(1) : sb.toString();
         return result;
@@ -113,10 +113,10 @@ public class MD5Utils {
             signString = getSortParams(params);
             System.out.println("sign string : " + signString);
             result = DigestUtils.md5Hex(signString + pkey);
-        } catch (UnsupportedEncodingException e){
+        } catch (UnsupportedEncodingException e) {
             System.out.println("cannot get sorted params");
             throw new Exception();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("sign failed");
             throw new Exception();
         }
@@ -138,7 +138,7 @@ public class MD5Utils {
         String http = "http://10.198.195.52:8080/card/cardservice/queryCardsByUser";
 
 
-        http = http.replaceAll("[a-zA-z]+://[^\\s]*[0-9]+","");
+        http = http.replaceAll("[a-zA-z]+://[^\\s]*[0-9]+", "");
         System.out.println(http);
     }
 

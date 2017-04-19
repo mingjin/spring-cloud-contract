@@ -76,5 +76,18 @@ project(':consumer') {
         testCompile "org.apache.jmeter:ApacheJMeter_junit:3.1"
 
     }
+
+    //create a single Jar with all dependencies
+    task jmeterJar(type: Jar) {
+        manifest {
+            attributes 'Implementation-Title': 'Gradle Jar',
+                    'Implementation-Version': version,
+                    'Main-Class': 'com.ifpay.paymenttest.Payment'
+        }
+        baseName = project.name + '-jmeter'
+        from (sourceSets.test.output){
+            include "com/ifpay/paymenttest/**"
+        }
+    }
 }
 
