@@ -7,13 +7,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *ÀàÃû£ºpayment_service
- *¹¦ÄÜ£º»¥¸¶Íâ²¿·şÎñ½Ó¿Ú¿ØÖÆ
+ *ç±»åï¼špayment_service
+ *åŠŸèƒ½ï¼šäº’ä»˜å¤–éƒ¨æœåŠ¡æ¥å£æ§åˆ¶
  */
 public class PaymentService {
 
 	/**
-	 * webÖ§¸¶
+	 * webæ”¯ä»˜
 	 * @param reqMap
 	 * @param key
 	 * @return
@@ -39,9 +39,9 @@ public class PaymentService {
 		signMap.put("isApp", reqMap.get("isApp"));
 		signMap.put("userIp", reqMap.get("userIp"));
 
-		String sign = PaymentFunction.BuildMysign(signMap, key);//Éú³ÉÇ©Ãû½á¹û
+		String sign = PaymentFunction.BuildMysign(signMap, key);//ç”Ÿæˆç­¾åç»“æœ
 
-		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// Æ´×°html
+		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// æ‹¼è£…html
 		return sbHtml.toString();
 	}
 
@@ -69,15 +69,15 @@ public class PaymentService {
 		signMap.put("userIp", reqMap.get("userIp"));
 		signMap.put("backUrl", reqMap.get("backUrl"));
 
-		String sign = PaymentFunction.BuildMysign(signMap, key);//Éú³ÉÇ©Ãû½á¹û
+		String sign = PaymentFunction.BuildMysign(signMap, key);//ç”Ÿæˆç­¾åç»“æœ
 
-		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// Æ´×°html
+		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// æ‹¼è£…html
 		return sbHtml.toString();
 	}
 
 
 	/**
-	 * appÖ§¸¶
+	 * appæ”¯ä»˜
 	 * @param reqMap
 	 * @param key
 	 * @return
@@ -103,7 +103,7 @@ public class PaymentService {
 		signMap.put("isApp", reqMap.get("isApp"));
 		signMap.put("userIp", reqMap.get("userIp"));
 
-		String sign = PaymentFunction.BuildMysign(signMap, key);//Éú³ÉÇ©Ãû½á¹û
+		String sign = PaymentFunction.BuildMysign(signMap, key);//ç”Ÿæˆç­¾åç»“æœ
 		signMap.put("sign_type", reqMap.get("sign_type"));
 		signMap.put("sign", sign);
 //		String url = reqMap.get("requestUrl").toString();
@@ -112,7 +112,7 @@ public class PaymentService {
 	}
 
 	/**
-	 * ÍøÒøÖ§¸¶
+	 * ç½‘é“¶æ”¯ä»˜
 	 * @param reqMap
 	 * @param key
 	 * @return
@@ -135,15 +135,15 @@ public class PaymentService {
 		signMap.put("defaultbank", reqMap.get("defaultbank"));
 		signMap.put("isApp", "web");
 
-		String sign = PaymentFunction.BuildMysign(signMap, key);// Éú³ÉÇ©Ãû½á¹û
+		String sign = PaymentFunction.BuildMysign(signMap, key);// ç”Ÿæˆç­¾åç»“æœ
 
-		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// Æ´×°html
+		StringBuffer sbHtml = HttpRequest.htmlBuild(reqMap, signMap, sign);// æ‹¼è£…html
 
 		return sbHtml.toString();
 	}
 
 	/**
-	 * É¨Âë
+	 * æ‰«ç 
 	 */
 //	public static String ScanForm(
 //			String service,
@@ -201,21 +201,21 @@ public class PaymentService {
 //		if(!"scanpay_wx".equals(service)&&!"scanpay_ali".equals(service)){
 //			sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //	        sbHtml.append("<div style=\"text-align: center; \">");
-//	        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£ºÇëÊ¹ÓÃÎ¢ĞÅ»òÖ§¸¶±¦É¨ÂëÖ§¸¶£¡</p>");
+//	        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼šè¯·ä½¿ç”¨å¾®ä¿¡æˆ–æ”¯ä»˜å®æ‰«ç æ”¯ä»˜ï¼</p>");
 //	        sbHtml.append("</div>");
 //
 //		}else{
 //			if(merchant_ID==null||"".equals(merchant_ID)){
 //				sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //		        sbHtml.append("<div style=\"text-align: center; \">");
-//		        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£º¿Í»§ĞÅÏ¢²»´æÔÚÓĞÎó£¬ÇëÖØĞÂÉú³ÉÂë£¡</p>");
+//		        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼šå®¢æˆ·ä¿¡æ¯ä¸å­˜åœ¨æœ‰è¯¯ï¼Œè¯·é‡æ–°ç”Ÿæˆç ï¼</p>");
 //		        sbHtml.append("</div>");
 //			}else{
-//				//´Ë´¦»ñÈ¡Êı¾İ
+//				//æ­¤å¤„è·å–æ•°æ®
 //				String getInfoURL=KingnsConfig.getInfoByCustomerIdUrl;
 //				HttpClientService clientService=new HttpClientService();
 //				Map map=clientService.getKeyByHttp(merchant_ID,getInfoURL);
-//				System.out.println("É¨Âëµ÷ÓÃ²éÑ¯ĞÅÏ¢ "+map.toString());
+//				System.out.println("æ‰«ç è°ƒç”¨æŸ¥è¯¢ä¿¡æ¯ "+map.toString());
 //				if("200".equals(map.get("statusCode").toString())){
 //					JSONObject json=JSONObject.fromObject(map.get("response").toString());
 //					msg = (String)json.get("msg");
@@ -228,7 +228,7 @@ public class PaymentService {
 //				if(msg!=null&&!"".equals(msg)){
 //					sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //			        sbHtml.append("<div style=\"text-align: center; \">");
-//			        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£º").append(msg).append(",ÇëÖØĞÂÉú³ÉÂë£¡</p>");
+//			        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼š").append(msg).append(",è¯·é‡æ–°ç”Ÿæˆç ï¼</p>");
 //			        sbHtml.append("</div>");
 //
 //				}else{
@@ -245,11 +245,11 @@ public class PaymentService {
 //							String keys = key.substring(0,12) + key.substring(key.length()-12,key.length());
 //							customerNo_encrypt = customerNo_encrypt.replace(" ", "+");
 //							customerNo_dec = new String(Util_3DESCoder.decodeBase64AndDecrypt3DES(customerNo_encrypt,keys),"UTF-8");
-//							System.out.println("É¨ÂëºóÊÖ»úºÅ£º"+customerNo_dec);
+//							System.out.println("æ‰«ç åæ‰‹æœºå·ï¼š"+customerNo_dec);
 //						} catch (UnsupportedEncodingException e) {
 //							sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //					        sbHtml.append("<div style=\"text-align: center; \">");
-//					        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£ºÏµÍ³Òì³££¡</p>");
+//					        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼šç³»ç»Ÿå¼‚å¸¸ï¼</p>");
 //					        sbHtml.append("</div>");
 //					        System.out.println(sbHtml.toString());
 //							return sbHtml.toString();
@@ -257,25 +257,25 @@ public class PaymentService {
 //						if(customerNo_dec==null||"".equals(customerNo_dec)||!customerNo_dec.equals(merchant_ID)){
 //							sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //					        sbHtml.append("<div style=\"text-align: center; \">");
-//					        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£ºÑéÇ©Ê§°Ü,ÇëÖØĞÂÉú³ÉÂë£¡</p>");
+//					        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼šéªŒç­¾å¤±è´¥,è¯·é‡æ–°ç”Ÿæˆç ï¼</p>");
 //					        sbHtml.append("</div>");
 //						}else{
-//							String Csign = PaymentFunction.BuildMysignString(merchant_ID+customerNo_encrypt, key);//Éú³ÉÇ©Ãû½á¹û
+//							String Csign = PaymentFunction.BuildMysignString(merchant_ID+customerNo_encrypt, key);//ç”Ÿæˆç­¾åç»“æœ
 //							if(!Csign.equals(ssign)){
 //								sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" method=\"get\">");
 //						        sbHtml.append("<div style=\"text-align: center; \">");
-//						        sbHtml.append("<p style=\"padding: 0; \"> ´íÎóĞÅÏ¢£ºÑéÇ©Ê§°Ü,ÇëÖØĞÂÉú³ÉÂë£¡</p>");
+//						        sbHtml.append("<p style=\"padding: 0; \"> é”™è¯¯ä¿¡æ¯ï¼šéªŒç­¾å¤±è´¥,è¯·é‡æ–°ç”Ÿæˆç ï¼</p>");
 //						        sbHtml.append("</div>");
 //							}else{
 //								sPara.put("merchant_ID", merchant_ID);
 //								sPara.put("seller_email", email);
 //
-//								String mysign = PaymentFunction.BuildMysign(sPara, key);//Éú³ÉÇ©Ãû½á¹û
+//								String mysign = PaymentFunction.BuildMysign(sPara, key);//ç”Ÿæˆç­¾åç»“æœ
 //								System.out.println("sing:"+mysign);
 //								List keys = new ArrayList(sPara.keySet());
 //								String gateway=KingnsConfig.rongpay_url;
 //
-//								//GET·½Ê½´«µİ
+//								//GETæ–¹å¼ä¼ é€’
 //								sbHtml.append("<script type=\"text/javascript\" src=\"common/js/html5/keyboard.js\"></script>");
 //								sbHtml.append("<form id=\"rongpaysubmit\" name=\"rongpaysubmit\" action=\"").append(gateway).append("\" method=\"get\">");
 //
@@ -290,20 +290,20 @@ public class PaymentService {
 //								}
 //						        sbHtml.append("<input type=\"hidden\" name=\"sign\" value=\"").append(mysign).append("\"/>");
 //						        sbHtml.append("<input type=\"hidden\" name=\"sign_type\" value=\"").append(sign_type).append("\"/>");
-//						        sbHtml.append("<div class=\"avatar\"><span></span><p>ÊÕ¿îÕË»§£º").append(CustumerName).append("</p></div>");
+//						        sbHtml.append("<div class=\"avatar\"><span></span><p>æ”¶æ¬¾è´¦æˆ·ï¼š").append(CustumerName).append("</p></div>");
 //						        sbHtml.append("<div class=\"paybox\">");
 //				        		sbHtml.append("<p>");
-//		        				sbHtml.append("<input id=\"text1\" readonly=\"readonly\" style=\"height:28px;width:98%;outline:none;padding-left:3px;\" name=\"amount\" placeholder=\"ÇëÊäÈë½ğ¶î\"/>");
-//								sbHtml.append("<label for=\"amount\" id=\"money\">£¤</label>");
+//		        				sbHtml.append("<input id=\"text1\" readonly=\"readonly\" style=\"height:28px;width:98%;outline:none;padding-left:3px;\" name=\"amount\" placeholder=\"è¯·è¾“å…¥é‡‘é¢\"/>");
+//								sbHtml.append("<label for=\"amount\" id=\"money\">ï¿¥</label>");
 //								sbHtml.append("</p>");
 //								sbHtml.append("</div>");
 //								sbHtml.append("<div style=\"margin: 20px; \">");
-//	//							sbHtml.append("<input type=\"submit\" class=\"button_p2p\" value=\"È·ÈÏ¸¶¿î\">");
+//	//							sbHtml.append("<input type=\"submit\" class=\"button_p2p\" value=\"ç¡®è®¤ä»˜æ¬¾\">");
 //								sbHtml.append("</div>");
 //								sbHtml.append("</form>");
 //								sbHtml.append("<script type=\"text/javascript\">(function(){ var input1 = document.getElementById('text1');new KeyBoard(input1);})(); </script>");
 //
-//						        //submit°´Å¥¿Ø¼şÇë²»Òªº¬ÓĞnameÊôĞÔ
+//						        //submitæŒ‰é’®æ§ä»¶è¯·ä¸è¦å«æœ‰nameå±æ€§
 //
 //							}
 //						}

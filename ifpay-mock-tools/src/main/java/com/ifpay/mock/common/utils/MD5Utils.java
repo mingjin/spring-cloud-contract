@@ -126,30 +126,30 @@ public class MD5Utils {
     }
 
 
-    public static void main(String[] args) throws Exception {
-
-//        TreeMap<String, String> map = new TreeMap<String, String>();
-//        map.put("version", "1.0");
-//        map.put("terminalType", "pc");
-//        map.put("merchantId", "paymock");
-//        map.put("merchantUserId", "123456789");
-//        map.put("status", "1");
-//        map.put("signType", "md5");
-//        System.out.println("test = " + MD5Utils.md5Sign(map, "038ioerqowerliuweryiwerqg&HDF"));
-
-//        String http = "http://10.198.195.52:8080/card/cardservice/queryCardsByUser";
-//        http = http.replaceAll("[a-zA-z]+://[^\\s]*[0-9]+","");
-//        System.out.println(http);
-        String str = "eyJ0eG5UeXBlIjoiMDEiLCJjaGFubmVsVHlwZSI6IjYwMDIiLCJtZXJJZCI6Ijk5NjYwMDAwODAwMDA2MCIsIm9yZGVyQm9keS" +
-                "I6InByb2R1Y3ROYW1lIiwib3JkZXJUaW1lIjoiMjAxNzA0MTIxNTIwMjEiLCJjdXJyZW5jeVR5cGUiOiIxNTYiLCJzaWduQXR1cmUiO" +
-                "iJFQjY3MkI2RkZFMzZCMkM0QTAxREVCQ0ZCM0Y1N0I4QSIsInR4blN1YlR5cGUiOiIwMTAxMzAiLCJ0eG5BbXQiOiIxIiwidGVybUlk" +
-                "IjoiV0VCIiwicHJvZHVjdElkIjoiMjAxNzA0MTIxNTIwMDUzNzQiLCJzaWduTWV0aG9kIjoiMDIiLCJiYWNrRW5kVXJsIjoiaHR0cDo" +
-                "vLzExNC4yMTUuMjQyLjk6MTgxNzAvUGF5UmVjMTE/aWR4PTEwMTAxIiwib3JkZXJEZXRhaWwiOiJwcm9kdWN0RGVzYyIsIm5lZWRCYW" +
-                "5rVHlwZSI6IlkiLCJhdHRhY2giOiIiLCJwYXlBY2Nlc3NUeXBlIjoiMDIiLCJlbmNvZGluZyI6IlVURi04IiwidGVybUlwIjoiMTE2L" +
-                "jIyOC41NC4xMTgiLCJvcmRlcklkIjoiOTExNzA0MTIwMDEyNjExMjQ4In0=";
-
-        System.out.println(new String(Base64.decodeBase64(str)));
-    }
+//    public static void main(String[] args) throws Exception {
+//
+////        TreeMap<String, String> map = new TreeMap<String, String>();
+////        map.put("version", "1.0");
+////        map.put("terminalType", "pc");
+////        map.put("merchantId", "paymock");
+////        map.put("merchantUserId", "123456789");
+////        map.put("status", "1");
+////        map.put("signType", "md5");
+////        System.out.println("test = " + MD5Utils.md5Sign(map, "038ioerqowerliuweryiwerqg&HDF"));
+//
+////        String http = "http://10.198.195.52:8080/card/cardservice/queryCardsByUser";
+////        http = http.replaceAll("[a-zA-z]+://[^\\s]*[0-9]+","");
+////        System.out.println(http);
+//        String str = "eyJ0eG5UeXBlIjoiMDEiLCJjaGFubmVsVHlwZSI6IjYwMDIiLCJtZXJJZCI6Ijk5NjYwMDAwODAwMDA2MCIsIm9yZGVyQm9keS" +
+//                "I6InByb2R1Y3ROYW1lIiwib3JkZXJUaW1lIjoiMjAxNzA0MTIxNTIwMjEiLCJjdXJyZW5jeVR5cGUiOiIxNTYiLCJzaWduQXR1cmUiO" +
+//                "iJFQjY3MkI2RkZFMzZCMkM0QTAxREVCQ0ZCM0Y1N0I4QSIsInR4blN1YlR5cGUiOiIwMTAxMzAiLCJ0eG5BbXQiOiIxIiwidGVybUlk" +
+//                "IjoiV0VCIiwicHJvZHVjdElkIjoiMjAxNzA0MTIxNTIwMDUzNzQiLCJzaWduTWV0aG9kIjoiMDIiLCJiYWNrRW5kVXJsIjoiaHR0cDo" +
+//                "vLzExNC4yMTUuMjQyLjk6MTgxNzAvUGF5UmVjMTE/aWR4PTEwMTAxIiwib3JkZXJEZXRhaWwiOiJwcm9kdWN0RGVzYyIsIm5lZWRCYW" +
+//                "5rVHlwZSI6IlkiLCJhdHRhY2giOiIiLCJwYXlBY2Nlc3NUeXBlIjoiMDIiLCJlbmNvZGluZyI6IlVURi04IiwidGVybUlwIjoiMTE2L" +
+//                "jIyOC41NC4xMTgiLCJvcmRlcklkIjoiOTExNzA0MTIwMDEyNjExMjQ4In0=";
+//
+//        System.out.println(new String(Base64.decodeBase64(str)));
+//    }
 
 
 }

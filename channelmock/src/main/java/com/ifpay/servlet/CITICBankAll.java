@@ -126,7 +126,7 @@ public class CITICBankAll extends HttpServlet {
                         }
 
                         if (paymentResponseJson.contains("\"respCode\":\"0000\"")) {
-                            logger.info(">>>>>>>>>异步通知payment成功!transactionId = " + finalMap.get("transactionId"));
+                            logger.info(">>>>>>>>>异步通知payment成功!transactionId = " + notifySignMap.get("transactionId"));
                         } else {
                             logger.error(">>>>>>>>>异步通知payment失败!paymentResponseJson = " + paymentResponseJson);
                         }

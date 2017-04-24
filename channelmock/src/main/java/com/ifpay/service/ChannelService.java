@@ -52,6 +52,8 @@ public class ChannelService {
                 signMap.put("accountFlag", "N");
                 signMap.put("seqId", "901" + txnTime + RandomUtil.getNumber(8));
                 signMap.put("codeUrl", "https://qr.alipay.com/bax" + RandomUtil.getNumber(5) + RandomUtil.getCharAndNumr(16));
+            } else if (receiveMap.get("txnSubType").equals("010133")) {
+
             }
         } else {
             logger.error("txnSubType is null!");

@@ -467,21 +467,21 @@ public class DateUtil {
         return days + "天" + hours + "小时" + minutes + "分" + second + "秒";
     }
 
-    public static void main(String[] args) throws InterruptedException {
-//        System.out.println("951" + DateUtil.getTimeFormat() + RandomUtil.getNumber(8));
-//        Date start = DateUtil.getCurrentTimeForDate();
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println(getTimeDifferenceStr(getCurrentTimeForDate(), start));
-//        System.out.println(getDate("yyyyMMddHHmmss"));
-
-        String transactionId = "4008142001" + DateUtil.getTimeFormat() + RandomUtil.getNumber(4);
-        System.out.println(transactionId);
-        //4008142001201704106548473819
-        //4008142001201704111745156067
-    }
+//    public static void main(String[] args) throws InterruptedException {
+////        System.out.println("951" + DateUtil.getTimeFormat() + RandomUtil.getNumber(8));
+////        Date start = DateUtil.getCurrentTimeForDate();
+////        try {
+////            Thread.sleep(3000);
+////        } catch (InterruptedException e) {
+////            e.printStackTrace();
+////        }
+////        System.out.println(getTimeDifferenceStr(getCurrentTimeForDate(), start));
+////        System.out.println(getDate("yyyyMMddHHmmss"));
+//
+//        String transactionId = "4008142001" + DateUtil.getTimeFormat() + RandomUtils.getNumber(4);
+//        System.out.println(transactionId);
+//        //4008142001201704106548473819
+//        //4008142001201704111745156067
+//    }
 }
 

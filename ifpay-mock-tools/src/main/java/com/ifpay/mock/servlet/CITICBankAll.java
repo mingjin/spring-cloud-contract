@@ -7,9 +7,9 @@ import com.ifpay.mock.common.utils.JsonUtil;
 import com.ifpay.mock.common.utils.KeyUtils;
 import com.ifpay.mock.common.utils.MD5Utils;
 import com.ifpay.mock.service.ChannelService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ import java.util.concurrent.FutureTask;
 @WebServlet(name = "CITICBankServlet")
 public class CITICBankAll extends HttpServlet {
 
-    private static Logger logger = LogManager.getLogger(CITICBankAll.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(CITICBankAll.class.getName());
 
     private static ThreadPoolTaskExecutor poolTaskExecutor = new ThreadPoolTaskExecutor();
     static {
@@ -45,8 +45,8 @@ public class CITICBankAll extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         long startReturnCodeUrl = System.currentTimeMillis();
         logger.info("----------CITICBank return codeUrl Start:" + startReturnCodeUrl + "------------");
@@ -129,7 +129,7 @@ public class CITICBankAll extends HttpServlet {
                         }
 
                         if (paymentResponseJson.contains("\"respCode\":\"0000\"")) {
-                            logger.info(">>>>>>>>>异步通知payment成功!transactionId = " + finalMap.get("transactionId"));
+                            logger.info(">>>>>>>>>异步通知payment成功!transactionId = " + notifySignMap.get("transactionId"));
                         } else {
                             logger.error(">>>>>>>>>异步通知payment失败!paymentResponseJson = " + paymentResponseJson);
                         }

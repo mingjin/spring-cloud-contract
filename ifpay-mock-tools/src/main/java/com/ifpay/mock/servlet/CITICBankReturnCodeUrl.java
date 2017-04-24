@@ -5,9 +5,9 @@ import com.ifpay.mock.common.utils.JsonUtil;
 import com.ifpay.mock.common.utils.KeyUtils;
 import com.ifpay.mock.common.utils.MD5Utils;
 import com.ifpay.mock.service.ChannelService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,7 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @WebServlet(name = "CITICBankServlet")
 public class CITICBankReturnCodeUrl extends HttpServlet {
 
-    private static Logger logger = LogManager.getLogger(CITICBankReturnCodeUrl.class.getName());
+    private static Logger logger = LoggerFactory.getLogger(CITICBankReturnCodeUrl.class.getName());
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
