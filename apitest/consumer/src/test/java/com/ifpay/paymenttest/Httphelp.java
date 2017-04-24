@@ -21,7 +21,7 @@ import java.util.Map;
 public class Httphelp {
 
 
-    public static String htmlBuild(@SuppressWarnings("rawtypes") Map signMap, String sign) throws UnsupportedEncodingException {
+    public static String htmlBuild(@SuppressWarnings("rawtypes") Map signMap, String sign)  {
 
         StringBuffer sbHtml = new StringBuffer();
         @SuppressWarnings({"rawtypes", "unchecked"})
@@ -45,21 +45,28 @@ public class Httphelp {
     public String RadmonTD(String url, String ebankurl, String merchid, String email, String key, String return_url, String notify_url) throws UnsupportedEncodingException {
         String resopne = "";
         String bank = "";
-        RandomUtils rs = new RandomUtils();
-        String orderno = "31" + rs.random().substring(2);
-        //System.out.println("orderno, is "+orderno);
-//		if(Math.random()%2==0)
-//		{
-        bank = "WXPAY";
-        //System.out.println("geth5,bank is "+bank+" orderno is :"+orderno+"   url is:"+url);
-        resopne = getweb(bank, orderno, url, ebankurl, merchid, email, key, return_url, notify_url);
-//		}
-//		else
-//		{
-//			bank="ALIPAY";
-//			//System.out.println("getweb,bank is "+bank+" orderno is :"+orderno+"   url is:"+url);
-//			resopne=getweb(bank,orderno,url);
-//		}
+        try
+        {
+            RandomUtils rs = new RandomUtils();
+            String orderno = "31" + rs.random().substring(2);
+            //System.out.println("orderno, is "+orderno);
+            if(Math.random()%2==0)
+            {
+                bank = "WXPAY";
+                //System.out.println("geth5,bank is "+bank+" orderno is :"+orderno+"   url is:"+url);
+                resopne = getweb(bank, orderno, url, ebankurl, merchid, email, key, return_url, notify_url);
+            }
+            else
+            {
+                bank="ALIPAY";
+                //System.out.println("getweb,bank is "+bank+" orderno is :"+orderno+"   url is:"+url);
+                resopne=getweb(bank, orderno, url, ebankurl, merchid, email, key, return_url, notify_url);
+            }
+        }
+        catch (Exception ex)
+        {
+            resopne=ex.getMessage();
+        }
         return resopne;
     }
 
@@ -91,16 +98,14 @@ public class Httphelp {
         signMap.put("backUrl", "http://www.baidu.com/");
 
         String sign = PaymentFunction.BuildMysign(signMap, "31bad8ec6c7gge989116e6d0e0ae4b3c8dgec3c795edcga0283b7b8eb681e82f");
-
         String geturl = "";
         try {
             geturl = htmlBuild(signMap, sign);
 
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
         try {
             //System.out.println("geth5 url is: "+url+geturl);
             resopne = requestGet(url + geturl, ebankurl);
@@ -115,12 +120,8 @@ public class Httphelp {
     @SuppressWarnings("unchecked")
     public String getweb(String defaultbank, String orderno, String url, String ebankurl, String merchid, String email, String key, String return_url, String notify_url) throws UnsupportedEncodingException {
         String resopne = "";
-
         //System.out.println("return_url is: "+return_url);
-
         //System.out.println("notify_url is: "+notify_url);
-
-
         Map signMap = new HashMap();
         signMap.put("service", "online_pay");
         signMap.put("payment_type", "1");
