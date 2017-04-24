@@ -28,7 +28,7 @@ public class HttpRequest {
         URL u;
         HttpURLConnection con = null;
 
-        // 构建请求参数
+        // ???????????
         StringBuffer sb = new StringBuffer();
         String sendString = "" ;
         if (params != null) {
@@ -42,7 +42,7 @@ public class HttpRequest {
         }
 //        System.out.println("Request Url:" + url);
 //        System.out.println("Request msg:" + sb.toString());
-        // 尝试发送请求
+        // ???????????
         try {
             u = new URL(url);
             con = (HttpURLConnection) u.openConnection();
@@ -58,14 +58,14 @@ public class HttpRequest {
             osw.flush();
             osw.close();
         } catch (Exception e) {
-            throw new Exception("与服务器连接发生错误");
+            throw new Exception("??????????????????");
         } finally {
             if (con != null) {
                 con.disconnect();
             }
         }
 
-        // 读取返回内容
+        // ???????????
         StringBuffer buffer = new StringBuffer();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(con
@@ -75,7 +75,7 @@ public class HttpRequest {
                 buffer.append(temp);
             }
         } catch (Exception e) {
-            throw new Exception("从服务器获取数据失败");
+            throw new Exception("?????????????????");
         }
         return buffer.toString();
     }
@@ -132,7 +132,7 @@ public class HttpRequest {
 //        try {
 //            httpClient = new SSLClient();
 //            httpPost = new HttpPost(url);
-//            //设置参数
+//            //????????
 //            List<NameValuePair> list = new ArrayList<org.apache.http.NameValuePair>();
 //            Iterator iterator = map.entrySet().iterator();
 //            while(iterator.hasNext()){
@@ -197,7 +197,7 @@ public class HttpRequest {
     }
 
     /**
-     * 拼装html
+     * ??html
      * @param reqMap
      * @param signMap
      * @param sign
@@ -216,15 +216,15 @@ public class HttpRequest {
             name = (String) keys.get(i);
             value = (String) signMap.get(name);
             if(value != null && !"".equals(value)){
-                sbHtml.append("<input type=\"hidden\" name=\"").append(name).append("\" value=\"" + value + "\"/>");
+                sbHtml.append("<input type=\"hidden\" name=\"").append(name).append("\" value=\"" + new String(value.getBytes(),"GBK") + "\"/>");
             }
         }
         sbHtml.append("<input type=\"hidden\" name=\"sign\" value=\"").append(sign).append("\"/>");
         sbHtml.append("<input type=\"hidden\" name=\"sign_type\" value=\"").append(reqMap.get("sign_type")).append("\"/>");
-        //submit按钮控件请不要含有name属性
+        //submit?????????????name????
         sbHtml.append(new String("<input type=\"submit\" value=\"submit\"></form>"));
-//        sbHtml.append(new String("<input type=\"submit\" value=\"确认支付\"></form>".getBytes("gbk"),"utf-8"));
-//        sbHtml.append("<input type=\"submit\" value=\"确认支付\"></form>");
+//        sbHtml.append(new String("<input type=\"submit\" value=\"??????\"></form>".getBytes("gbk"),"utf-8"));
+//        sbHtml.append("<input type=\"submit\" value=\"??????\"></form>");
 
         System.out.println("sbHtml = " + sbHtml);
         return sbHtml;
