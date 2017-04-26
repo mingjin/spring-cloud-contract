@@ -17,7 +17,7 @@ public class PaymentTests {
      */
     @Test
     public void shouldGenerateQueryParameterString() {
-        Payment payment = new Payment("95ff8e3b2ff06eb4f894e46fb028ccedc8d2294e068632e810c10bg6adgegg05")
+        Payment payment = new Payment().secureCode("95ff8e3b2ff06eb4f894e46fb028ccedc8d2294e068632e810c10bg6adgegg05")
                 .set("order_no", "20170413232809").set("charset", "GBK").set("service", "online_pay")
                 .set("seller_email", "game211@126.com").set("merchant_ID", "100000000001986").set("isApp", "web")
                 .set("paymethod", "bankPay").set("notify_url", "https://test.payworth.net/notify_url.jsp")
